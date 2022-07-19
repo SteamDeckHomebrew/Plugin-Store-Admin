@@ -1,7 +1,6 @@
 {
-  "name": "store-admin",
+  "name": "decky-store-admin",
   "version": "0.1.0",
-  "private": true,
   "proxy": "https://beta.deckbrew.xyz",
   "dependencies": {
     "@mui/material": "^5.9.1",
