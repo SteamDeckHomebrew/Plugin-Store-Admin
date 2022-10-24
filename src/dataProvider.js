@@ -1,7 +1,7 @@
 import { fetchUtils } from 'react-admin';
 import authProvider from './authProvider';
 
-export const apiUrl = process.env.NODE_ENV === "production" ? "https://beta.deckbrew.xyz" : "";
+export const apiUrl = process.env.NODE_ENV === "production" ? "https://plugins.deckbrew.xyz" : "";
 export const cdnUrl = "https://cdn.tzatzikiweeb.moe/file/steam-deck-homebrew"
 const httpClient = fetchUtils.fetchJson;
 

@@ -1,7 +1,7 @@
 {
   "name": "decky-store-admin",
   "version": "0.1.0",
-  "proxy": "https://beta.deckbrew.xyz",
+  "proxy": "https://plugins.deckbrew.xyz",
   "dependencies": {
     "@mui/material": "^5.9.1",
     "@mui/styles": "^5.9.1",
