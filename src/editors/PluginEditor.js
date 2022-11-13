@@ -6,7 +6,7 @@ const PluginEditor = () => (
             <TextInput source="id" />
             <TextInput source="name" />
             <TextInput source="author" />
-            <TextInput source="description" fullWidth />
+            <TextInput source="description" fullWidth multiline />
             <ArrayInput source="tags">
                 <SimpleFormIterator>
                     <TextInput source="." label="Name"/>
