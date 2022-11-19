@@ -1,4 +1,4 @@
-import { List, Datagrid, TextField, ArrayField, SingleFieldList } from "react-admin";
+import { List, Datagrid, BooleanField, TextField, ArrayField, SingleFieldList } from "react-admin";
 import AdvancedChip from "../components/AdvancedChip";
 import ArrayChipList from "../components/ArrayChipList";
 import { downloadArtifact } from "../dataProvider";
@@ -15,6 +15,7 @@ const PluginList = () => (
                     <AdvancedChip source="name" altSource="hash" onChipClick={downloadArtifact} clickSources={["hash"]}/>
                 </SingleFieldList>
             </ArrayField>
+            <BooleanField source="visible" sortable={false}/>
         </Datagrid>
     </List>
 )

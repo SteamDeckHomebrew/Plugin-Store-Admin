@@ -1,9 +1,10 @@
-import { ArrayInput, Edit, SimpleForm, SimpleFormIterator, TextInput } from 'react-admin';
+import { ArrayInput, Edit, SimpleForm, SimpleFormIterator, BooleanInput, TextInput } from 'react-admin';
 
 const PluginEditor = () => (
     <Edit>
         <SimpleForm>
             <TextInput source="id" />
+            <BooleanInput source="visible" />
             <TextInput source="name" />
             <TextInput source="author" />
             <TextInput source="description" fullWidth multiline />

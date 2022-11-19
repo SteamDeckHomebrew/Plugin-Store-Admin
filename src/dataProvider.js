@@ -22,7 +22,7 @@ const dataProvider= {
         //     range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
         //     filter: JSON.stringify(params.filter),
         // };
-        const url = `${apiUrl}/${resource}`//?${stringify(query)}`;
+        const url = `${apiUrl}/${resource}?hidden=true`//?${stringify(query)}`;
 
         return httpClient(url).then(({ headers, json }) => ({
             data: json,
@@ -31,7 +31,7 @@ const dataProvider= {
     },
 
     getOne: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}`).then(({ json }) => {
+        httpClient(`${apiUrl}/${resource}?hidden=true`).then(({ json }) => {
             return {
                 data: json.find(x => x.id.toString() === params.id),
             }
