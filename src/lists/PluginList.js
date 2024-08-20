@@ -1,7 +1,7 @@
 import { List, Datagrid, BooleanField, TextField, ArrayField, SingleFieldList } from "react-admin";
 import AdvancedChip from "../components/AdvancedChip";
 import ArrayChipList from "../components/ArrayChipList";
-import { downloadArtifact } from "../dataProvider";
+import { downloadArtifact } from "../pluginDataProvider";
 
 const PluginList = () => (
     <List pagination={false} disableAuthentication>

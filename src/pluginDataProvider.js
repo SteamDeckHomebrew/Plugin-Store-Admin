@@ -2,7 +2,16 @@ import { fetchUtils } from 'react-admin';
 import authProvider from './authProvider';
 
 export const apiUrl = "";
+export const cdnUrl = "https://cdn.tzatzikiweeb.moe/file/steam-deck-homebrew";
 const httpClient = fetchUtils.fetchJson;
+
+export let generateDownloadURL = (hash) => `${cdnUrl}/versions/${hash}.zip`
+
+export let downloadArtifact = (hash) => {
+    const link = document.createElement('a');
+    link.href = generateDownloadURL(hash);
+    link.click();
+}
 
 const dataProvider = {
     getList: (resource, params) => {
@@ -13,20 +22,40 @@ const dataProvider = {
         //     range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
         //     filter: JSON.stringify(params.filter),
         // };
-        const url = `${apiUrl}/${resource}`//?${stringify(query)}`;
+        let url = `${apiUrl}/v1/${resource}`;
+        if (resource === "plugins") {
+            // TODO THIS IS MEGA JANK
+            url = `${apiUrl}/${resource}?hidden=true`//?${stringify(query)}`;
+        }
 
-        return httpClient(url).then(({ json }) => ({
+        return httpClient(url, resource !== "plugins" && {
+            headers: new Headers({
+                "Authorization": authProvider.getAuth()
+            }),
+        }).then(({ json }) => ({
             data: json,
             total: json.length,
         }));
     },
 
-    getOne: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}?hidden=true`).then(({ json }) => {
-            return {
-                data: json.find(x => x.id.toString() === params.id),
-            }
-        }),
+    getOne: (resource, params) => {
+        let url = `${apiUrl}/v1/${resource}/${params.id}`;
+        if (resource === "plugins") {
+            // TODO THIS IS MEGA JANK
+            url = `${apiUrl}/${resource}?hidden=true`//?${stringify(query)}`;
+            return httpClient(url).then(({ json }) => {
+                return {
+                    data: json.find(x => x.id.toString() === params.id),
+                }
+            })
+        }
+
+        return httpClient(url, {
+            headers: new Headers({
+                "Authorization": authProvider.getAuth()
+            }),
+        }).then(({ json }) => ({data: json}));
+    },
 
     // getMany: (resource, params) => {
     //     // const query = {
@@ -67,12 +96,17 @@ const dataProvider = {
                 data: { ...params.data, id: json.id },
             }))
         }
-        return Promise.reject("Not implemented")
+
+        return httpClient(`${apiUrl}/v1/${resource}/${params.id}`, {
+            method: 'PUT',
+            headers: new Headers({
+                "Authorization": authProvider.getAuth()
+            }),
+            body: JSON.stringify(params.data),
+        }).then(({ json }) => ({
+            data: json,
+        }))
     },
-        // httpClient(`${apiUrl}/${resource}/${params.id}`, {
-        //     method: 'PUT',
-        //     body: JSON.stringify(params.data),
-        // }).then(({ json }) => ({ data: json })),
 
     // updateMany: (resource, params) => {
     //     const query = {
@@ -84,13 +118,21 @@ const dataProvider = {
     //     }).then(({ json }) => ({ data: json }));
     // },
 
-    // create: (resource, params) =>
-    //     httpClient(`${apiUrl}/${resource}`, {
-    //         method: 'POST',
-    //         body: JSON.stringify(params.data),
-    //     }).then(({ json }) => ({
-    //         data: { ...params.data, id: json.id },
-    //     })),
+    create: (resource, params) => {
+        if (resource === "plugins") {
+            throw new Error("Not implemented.");
+        }
+
+        return httpClient(`${apiUrl}/v1/${resource}`, {
+            method: 'POST',
+            body: JSON.stringify(params.data),
+            headers: new Headers({
+                "Authorization": authProvider.getAuth()
+            }),
+        }).then(({ json }) => ({
+            data: json,
+        }))
+    },
 
     delete: (resource, params) => {
         if (resource === "plugins") {
@@ -102,7 +144,13 @@ const dataProvider = {
                 body: JSON.stringify(params),
             }).then(({ json }) => ({ data: json }))
         }
-        return Promise.reject("Not implemented")
+
+        return httpClient(`${apiUrl}/v1/${resource}/${params.id}`, {
+            method: 'DELETE',
+            headers: new Headers({
+                "Authorization": authProvider.getAuth()
+            }),
+        }).then(({ json }) => ({ data: json }));
     },
         // httpClient(`${apiUrl}/${resource}/${params.id}`, {
         //     method: 'DELETE',

@@ -13,5 +13,4 @@ const ArrayChipList = (props) => {
     )    
   }
 }
-ArrayChipList.defaultProps = { addLabel: true }
 export default ArrayChipList;

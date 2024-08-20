@@ -1,5 +1,5 @@
 import { fetchUtils } from 'react-admin';
-import { apiUrl } from "./dataProvider";
+import { apiUrl } from "./pluginDataProvider";
 
 const httpClient = fetchUtils.fetchJson;
 

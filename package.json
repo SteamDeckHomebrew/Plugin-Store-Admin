@@ -1,19 +1,21 @@
 {
   "name": "decky-store-admin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "proxy": "https://plugins.deckbrew.xyz",
   "dependencies": {
-    "@mui/material": "^5.10.10",
-    "@mui/styles": "^5.10.10",
+    "@mui/icons-material": "^5.16.7",
+    "@mui/material": "^5.16.7",
+    "@mui/styles": "^5.16.7",
+    "eslint": "8",
     "lodash.get": "^4.4.2",
     "prop-types": "^15.8.1",
-    "query-string": "^7.1.1",
-    "ra-data-json-server": "^4.4.4",
-    "react": "^18.2.0",
-    "react-admin": "^4.4.4",
-    "react-dom": "^18.2.0",
+    "query-string": "^9.1.0",
+    "ra-data-json-server": "^5.1.1",
+    "react": "^18.3.1",
+    "react-admin": "^5.1.1",
+    "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^3.0.4"
+    "web-vitals": "^4.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
